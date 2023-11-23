@@ -18,12 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    }
 
     // Prepare SQL statement
-    $tsql = "{call spLOGIN (?, ?)}";
-    $admin=0;
+    $admin=0
     if(!empty($username) && !empty($password) ){
-      $params = array($username, $password);  
+      $tsql = "{call spLOGIN (?, ?)}";
+      $params = array($username, $password); 
     } else if(!empty($usernameAdmin) && !empty($passwordAdmin) ){
-      $admin=1;
+      $tsql = "{call spADMINLOGIN (?, ?)}";
+      $admin=1
       $params = array($usernameAdmin, $passwordAdmin); 
     } else{
       echo "Please enter a username and password.";
