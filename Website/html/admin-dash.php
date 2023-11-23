@@ -90,7 +90,7 @@ function products()
                             <input type='hidden' name='pid' value='$pid'>
                             <button type='submit' class='admin-edit1-button button'>Delete</button>
                             </form>
-                            <form action='AdminForm.php' method='POST'>
+                            <form action='admin-form.php' method='POST'>
                             <input type='hidden' name='pid' value='$pid'>
                             <button type='submit' class='admin-edit1-button1 button'>
                             <span>

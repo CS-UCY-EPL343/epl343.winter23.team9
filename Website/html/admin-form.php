@@ -75,7 +75,7 @@
         </div>
         
         <span class="admin-form-add-new-product">
-          -ADD NEW/EXISTING PRODUCT-
+          -ADD NEW OR UPDATE EXISTING PRODUCT-
         </span>
         <div class="admin-form-form-container">
           <form
