@@ -147,7 +147,7 @@ CREATE PROCEDURE spEditProduct
   ) BEGIN PRINT 'Error: Product does not exist' RETURN
 END
   EXEC spDeleteProduct @Product_ID=@p_ID;
-  EXEC spAddProduct @Product_Name=@p_Name, @Product_ID=@p_ID, @Price=@p_Price, @Description=@p_Description, @Stock=@p_Stock, @Category=@p_Category, @Image_path=@p_Image_path;
+  EXEC spAddProduct @Product_Name=@p_Name, @Price=@p_Price, @Description=@p_Description, @Stock=@p_Stock, @Category=@p_Category, @Image_path=@p_Image_path;
 
 END
 GO

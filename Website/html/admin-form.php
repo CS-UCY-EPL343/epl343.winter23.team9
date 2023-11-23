@@ -63,7 +63,12 @@ if($newItem=1 && isset($_POST['pid']) && $_POST['pid']!=-1){
 
     $tsql = "{call spAddProduct (?, ?, ? ,? ,?, ?)}";
     
-   $params = array($_POST['Nname'], $_POST['Nprice'], $_POST['Ndescription'], $_POST['Nquantity'], $_POST['Ncategory'], $_POST['Nfilename']);
+   $params = array($_POST['Nname'], $_POST['NPrice'], $_POST['Ndescription'], $_POST['NQuantity'], $_POST['Ncategory'], $_POST['Nfilename']);
+   print_r($params);
+   $ans=sqlsrv_query($conn, $tsql, $params);
+   print_r($ans);
+   /* Free connection resources. */
+   sqlsrv_close($conn);
   }
 
 function getOldInfo($pid, $price, $cat, $name, $description, $quantity, $image){
@@ -108,85 +113,85 @@ echo "<input
 switch($cat){
   case "Mod":
     echo"<option value=''>Select category</option>
-    <option value='1' Selected>Mod</option>
-    <option value='2'>Pod</option>
-    <option value='3'>Coil</option>
-    <option value='4'>Booster</option>
-    <option value='5'>Liquid</option>
-    <option value='6'>Battery</option>
-    <option value='7'>Atomizer</option>
+    <option value='Mod' Selected>Mod</option>
+    <option value='Pod'>Pod</option>
+    <option value='Coil'>Coil</option>
+    <option value='Booster'>Booster</option>
+    <option value='Liquid'>Liquid</option>
+    <option value='Battery'>Battery</option>
+    <option value='Atomizer'>Atomizer</option>
   </select>";
     break;
   
   case "Pod":
     echo"<option value=''>Select category</option>
-    <option value='1'>Mod</option>
-    <option value='2' Selected>Pod</option>
-    <option value='3'>Coil</option>
-    <option value='4'>Booster</option>
-    <option value='5'>Liquid</option>
-    <option value='6'>Battery</option>
-    <option value='7'>Atomizer</option>
+    <option value='Mod'>Mod</option>
+    <option value='Pod' Selected>Pod</option>
+    <option value='Coil'>Coil</option>
+    <option value='Booster'>Booster</option>
+    <option value='Liquid'>Liquid</option>
+    <option value='Battery'>Battery</option>
+    <option value='Atomizer'>Atomizer</option>
   </select>";
     break;
 
   case "Coil":
     echo"<option value=''>Select category</option>
-    <option value='1'>Mod</option>
-    <option value='2'>Pod</option>
-    <option value='3' Selected>Coil</option>
-    <option value='4'>Booster</option>
-    <option value='5'>Liquid</option>
-    <option value='6'>Battery</option>
-    <option value='7'>Atomizer</option>
+    <option value='Mod'>Mod</option>
+    <option value='Pod'>Pod</option>
+    <option value='Coil' Selected>Coil</option>
+    <option value='Booster'>Booster</option>
+    <option value='Liquid'>Liquid</option>
+    <option value='Battery'>Battery</option>
+    <option value='Atomizer'>Atomizer</option>
   </select>";
     break;
   
   case "Booster":
     echo"<option value=''>Select category</option>
-    <option value='1'>Mod</option>
-    <option value='2'>Pod</option>
-    <option value='3'>Coil</option>
-    <option value='4' Selected>Booster</option>
-    <option value='5'>Liquid</option>
-    <option value='6'>Battery</option>
-    <option value='7'>Atomizer</option>
+    <option value='Mod'>Mod</option>
+    <option value='Pod'>Pod</option>
+    <option value='Coil'>Coil</option>
+    <option value='Booster' Selected>Booster</option>
+    <option value='Liquid'>Liquid</option>
+    <option value='Battery'>Battery</option>
+    <option value='Atomizer'>Atomizer</option>
   </select>";
     break;
   
   case "Liquid":
     echo"<option value=''>Select category</option>
-    <option value='1'>Mod</option>
-    <option value='2'>Pod</option>
-    <option value='3'>Coil</option>
-    <option value='4'>Booster</option>
-    <option value='5' Selected>Liquid</option>
-    <option value='6'>Battery</option>
-    <option value='7'>Atomizer</option>
+    <option value='Mod'>Mod</option>
+    <option value='Pod'>Pod</option>
+    <option value='Coil'>Coil</option>
+    <option value='Booster'>Booster</option>
+    <option value='Liquid' Selected>Liquid</option>
+    <option value='Battery'>Battery</option>
+    <option value='Atomizer'>Atomizer</option>
   </select>";
     break;
   
   case "Battery":
     echo"<option value=''>Select category</option>
-    <option value='1'>Mod</option>
-    <option value='2'>Pod</option>
-    <option value='3'>Coil</option>
-    <option value='4'>Booster</option>
-    <option value='5'>Liquid</option>
-    <option value='6' Selected>Battery</option>
-    <option value='7'>Atomizer</option>
+    <option value='Mod'>Mod</option>
+    <option value='Pod'>Pod</option>
+    <option value='Coil'>Coil</option>
+    <option value='Booster'>Booster</option>
+    <option value='Liquid'>Liquid</option>
+    <option value='Battery' Selected>Battery</option>
+    <option value='Atomizer'>Atomizer</option>
   </select>";
     break;
 
   case "Atomizer":
     echo"<option value=''>Select category</option>
-    <option value='1'>Mod</option>
-    <option value='2'>Pod</option>
-    <option value='3'>Coil</option>
-    <option value='4'>Booster</option>
-    <option value='5'>Liquid</option>
-    <option value='6'>Battery</option>
-    <option value='7' Selected>Atomizer</option>
+    <option value='Mod'>Mod</option>
+    <option value='Pod'>Pod</option>
+    <option value='Coil'>Coil</option>
+    <option value='Booster'>Booster</option>
+    <option value='Liquid'>Liquid</option>
+    <option value='Battery'>Battery</option>
+    <option value='Atomizer' Selected>Atomizer</option>
   </select>";
     break;
   
@@ -325,13 +330,13 @@ echo "<div class='admin-form-container4'>
                 class='admin-form-select'
               > 
               <option value=''>Select category</option>
-                  <option value='1' >Mod</option>
-                  <option value='2'>Pod</option>
-                  <option value='3'>Coil</option>
-                  <option value='4'>Booster</option>
-                  <option value='5'>Liquid</option>
-                  <option value='6'>Battery</option>
-                  <option value='7'>Atomizer</option>
+                  <option value='Mod' >Mod</option>
+                  <option value='Pod'>Pod</option>
+                  <option value='Coil'>Coil</option>
+                  <option value='Booster'>Booster</option>
+                  <option value='Liquid'>Liquid</option>
+                  <option value='Battery'>Battery</option>
+                  <option value='Atomizer'>Atomizer</option>
                 </select>
               <div class='admin-form-container4'>
               <input type='text' id='myFile' name='Nfilename' placeholder='Image Path'/>
