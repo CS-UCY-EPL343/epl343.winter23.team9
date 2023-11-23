@@ -93,12 +93,6 @@ CREATE PROCEDURE spAddProduct
   @Image_path VARCHAR(200)
   AS 
   BEGIN
-  IF EXISTS (
-    SELECT *
-    FROM [dbo].[PRODUCT]
-    WHERE [Product_ID] = @Product_ID
-  ) BEGIN PRINT 'Error: Product ID already exists' RETURN
-END
 IF @Stock < 0 BEGIN PRINT 'Error: Stock cannot be negative' RETURN
 END
 IF @Price < 0 BEGIN PRINT 'Error: Price cannot be negative' RETURN
@@ -110,7 +104,6 @@ BEGIN
 INSERT INTO [dbo].PRODUCT
 VALUES (
     @Product_Name,
-    @Product_ID,
     @Price,
     @Description,
     @Stock,
