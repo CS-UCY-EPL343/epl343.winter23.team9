@@ -38,8 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       if($admin){
         echo "Admin Login successful.";
+        header("Location: admin-dash.php");
       }else{
         echo "Login successful.";
+        header("Location: edit-credentials.php");
       }
         
 

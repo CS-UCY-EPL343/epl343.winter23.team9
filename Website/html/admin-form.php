@@ -64,9 +64,7 @@ if($newItem=1 && isset($_POST['pid']) && $_POST['pid']!=-1){
     $tsql = "{call spAddProduct (?, ?, ? ,? ,?, ?)}";
     
    $params = array($_POST['Nname'], $_POST['NPrice'], $_POST['Ndescription'], $_POST['NQuantity'], $_POST['Ncategory'], $_POST['Nfilename']);
-   print_r($params);
    $ans=sqlsrv_query($conn, $tsql, $params);
-   print_r($ans);
    /* Free connection resources. */
    sqlsrv_close($conn);
   }
@@ -280,7 +278,7 @@ echo "<div class='admin-form-container4'>
         </div>
         
         <span class="admin-form-add-new-product">
-          -ADD NEW/EXISTING PRODUCT-
+          -ADD NEW OR UPDATE EXISTING PRODUCT-
         </span>
         <div class="admin-form-form-container">
           <form

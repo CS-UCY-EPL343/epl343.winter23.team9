@@ -23,9 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Prepare SQL statement
     $tsql = "{call spSIGNUP (?, ?, ?, ?, ?, ?, ?)}";
     $params = array($email, $phone, $firstname, $lastname, $username, $password, $birthdate);
-
+   print_r($params);
     // Execute the query
       $stmt = sqlsrv_query($conn, $tsql, $params);
+      print_r($stmt);
     if ($stmt === false) {
       echo "Error Registering.";
       print_r(sqlsrv_errors(), true);

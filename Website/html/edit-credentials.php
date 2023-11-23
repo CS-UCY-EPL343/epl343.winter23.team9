@@ -1,3 +1,117 @@
+<?php
+session_start();
+
+  $serverName = $_SESSION["serverName"];
+  $connectionOptions = $_SESSION["connectionOptions"];
+  $conn = sqlsrv_connect($serverName, $connectionOptions);
+
+  if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+  }
+  $username=$_POST['username'];
+
+  $tsqlget = "{call spGetCustomer (?)}";
+  $paramsget = array($username); // replace 'Electronics' with the category you want
+  $getResults = sqlsrv_query($conn, $tsqlget, $paramsget);
+  $row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
+
+    $email=$row['Email'];
+    $phone=$row['Phone_Number'];
+    $firstname=$row['First_Name'];
+    $lastname=$row['Last_Name'];
+    $username=$row['UserName'];
+    $oldusername=$username;
+    $password=$row['Passwd'];
+    $birthdate=$row['Birth_Date'];
+    $loyalty=$row['Loyalty_Points'];
+
+      /* Free query  resources. */
+  sqlsrv_free_stmt($getResults);
+
+  /* Free connection resources. */
+  sqlsrv_close($conn);
+
+  echo "
+        <input
+            type='text'
+            name='username'
+            value='$username'
+            placeholder='Username'
+            id='username'
+            class='edit-credentials-username input'
+        />
+        <input
+          type='text'
+          name='password'
+          value='$password'
+          placeholder='Password'
+          id='password'
+          class='edit-credentials-password input'
+        />
+        <input
+          type='tel'
+          name='phone'
+          value='$phone'
+          placeholder='Phone'
+          id='phone'
+          class='edit-credentials-phone input'
+        />
+        <input
+          type='text'
+          name='email'
+          value='$email'
+          placeholder='E-mail'
+          id='email'
+          class='edit-credentials-email input'
+        />
+        <input
+          type='text'
+          name='firstname'
+          value='$firstname'
+          placeholder='First Name'
+          id='firstname'
+          class='edit-credentials-first-name input'
+        />
+        <input
+          type='text'
+          name='lastname'
+          value='$lastname'
+          placeholder='Last Name'
+          id='lastname'
+          class='edit-credentials-last-name input'
+        />
+        <input
+          type='date'
+          name='birthdate'
+          value='$birthdate'
+          placeholder='Age'
+          id='age'
+          class='edit-credentials-age input'
+        />
+  "
+
+  if ($_SERVER["REQUEST_METHOD"] == "POST", $_POST['form_id'] ) {
+    $serverName = $_SESSION["serverName"];
+    $connectionOptions = $_SESSION["connectionOptions"];
+    $conn = sqlsrv_connect($serverName, $connectionOptions);
+  
+    if ($conn === false) {
+      die(print_r(sqlsrv_errors(), true));
+    }
+
+    $tsqledit = "{call spEditAccount (?, ?, ? ,? ,?, ?, ?, ?)}";
+    
+   $paramsedit = array($_POST['email'], $_POST['phone'], $_POST['firstname'], $_POST['lastname'], $oldusername, $_POST['username'], $_POST['password'], $_POST['birthdate']); 
+    sqlsrv_query($conn, $tsqledit, $paramsedit);
+
+   /* Free connection resources. */
+   sqlsrv_close($conn);
+  
+  }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -103,50 +217,66 @@
         </div>
         <div class="edit-credentials-container2">
           <span class="edit-credentials-text">-EDIT CREDENTIALS-</span>
+          <form
+            id="useredit"
+            name="useredit"
+            method="POST"
+            enctype="multipart/form-data"
+            autocomplete="on"
+            class="admin-form-form"
+          >
           <input
             type="text"
+            name="username"
             placeholder="Username"
             id="username"
             class="edit-credentials-username input"
           />
           <input
             type="text"
+            name="password"
             placeholder="Password"
             id="password"
             class="edit-credentials-password input"
           />
           <input
             type="tel"
+            name="phone"
             placeholder="Phone"
             id="phone"
             class="edit-credentials-phone input"
           />
           <input
             type="text"
+            name="email"
             placeholder="E-mail"
             id="email"
             class="edit-credentials-email input"
           />
           <input
             type="text"
+            name="firstname"
             placeholder="First Name"
             id="firstname"
             class="edit-credentials-first-name input"
           />
           <input
             type="text"
+            name="lastname"
             placeholder="Last Name"
             id="lastname"
             class="edit-credentials-last-name input"
           />
           <input
             type="date"
+            name="birthdate"
             placeholder="Age"
             id="age"
             class="edit-credentials-age input"
           />
-          <button type="submit" class="edit-credentials-submit-button button">
-            <span class="edit-credentials-text1">SUBMIt</span>
+    </form>
+          <button type="submit" form="useredit" class="edit-credentials-submit-button button">
+            <span class="edit-credentials-text1">SUBMIT</span>
           </button>
         </div>
       </div>
