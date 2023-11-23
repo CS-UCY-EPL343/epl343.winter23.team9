@@ -15,7 +15,6 @@ IF EXISTS (
 ) BEGIN PRINT 'Error: Username already exists'
 END
 ELSE BEGIN
-SET @Passwd = HASHBYTES('SHA2_256', @Passwd);
 INSERT INTO [dbo].CUSTOMER
 VALUES (
     @Email,
@@ -39,7 +38,7 @@ CREATE PROCEDURE spLOGIN @UserName VARCHAR(30),
     SELECT *
     FROM [dbo].CUSTOMER
     WHERE [UserName] = @UserName
-      AND [Passwd] = HASHBYTES('SHA2_256', @Passwd)
+      AND [Passwd] = @Passwd
   )  BEGIN PRINT 'Error: Invalid username or password' PRINT HASHBYTES('SHA2_256', @Passwd)
 END
 END
