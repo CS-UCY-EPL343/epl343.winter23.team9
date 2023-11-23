@@ -53,7 +53,7 @@ CREATE PROCEDURE spADMINLOGIN @UserName VARCHAR(30),
     SELECT *
     FROM [dbo].CUSTOMER
     WHERE [UserName] = @UserName AND @UserName = 'administrator'
-      AND [Passwd] = HASHBYTES('SHA2_256', @Passwd)
+      AND [Passwd] = @Passwd
   )  BEGIN PRINT 'Error: Invalid username or password' PRINT HASHBYTES('SHA2_256', @Passwd)
 END
 END
