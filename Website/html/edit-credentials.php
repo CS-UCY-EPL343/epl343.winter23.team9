@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+if(!isset($_POST['formVal'])){
   $serverName = $_SESSION["serverName"];
   $connectionOptions = $_SESSION["connectionOptions"];
   $conn = sqlsrv_connect($serverName, $connectionOptions);
@@ -25,72 +26,18 @@ session_start();
     $birthdate=$row['Birth_Date'];
     $loyalty=$row['Loyalty_Points'];
 
+    $birthdate = $birthdate->format('Y-m-d');
+   
+
       /* Free query  resources. */
   sqlsrv_free_stmt($getResults);
 
   /* Free connection resources. */
   sqlsrv_close($conn);
+}
+  
 
-  echo "
-        <input
-            type='text'
-            name='username'
-            value='$username'
-            placeholder='Username'
-            id='username'
-            class='edit-credentials-username input'
-        />
-        <input
-          type='text'
-          name='password'
-          value='$password'
-          placeholder='Password'
-          id='password'
-          class='edit-credentials-password input'
-        />
-        <input
-          type='tel'
-          name='phone'
-          value='$phone'
-          placeholder='Phone'
-          id='phone'
-          class='edit-credentials-phone input'
-        />
-        <input
-          type='text'
-          name='email'
-          value='$email'
-          placeholder='E-mail'
-          id='email'
-          class='edit-credentials-email input'
-        />
-        <input
-          type='text'
-          name='firstname'
-          value='$firstname'
-          placeholder='First Name'
-          id='firstname'
-          class='edit-credentials-first-name input'
-        />
-        <input
-          type='text'
-          name='lastname'
-          value='$lastname'
-          placeholder='Last Name'
-          id='lastname'
-          class='edit-credentials-last-name input'
-        />
-        <input
-          type='date'
-          name='birthdate'
-          value='$birthdate'
-          placeholder='Age'
-          id='age'
-          class='edit-credentials-age input'
-        />
-  "
-
-  if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['form_id'] ) {
+  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['formVal'])) {
     $serverName = $_SESSION["serverName"];
     $connectionOptions = $_SESSION["connectionOptions"];
     $conn = sqlsrv_connect($serverName, $connectionOptions);
@@ -98,14 +45,23 @@ session_start();
     if ($conn === false) {
       die(print_r(sqlsrv_errors(), true));
     }
-
+    
     $tsqledit = "{call spEditAccount (?, ?, ? ,? ,?, ?, ?, ?)}";
     
-   $paramsedit = array($_POST['email'], $_POST['phone'], $_POST['firstname'], $_POST['lastname'], $oldusername, $_POST['username'], $_POST['password'], $_POST['birthdate']); 
-    sqlsrv_query($conn, $tsqledit, $paramsedit);
-
+   $paramsedit = array($_POST['email'], $_POST['phone'], $_POST['firstname'], $_POST['lastname'], $_POST['oldusername'], $_POST['username'], $_POST['password'], $_POST['birthdate']); 
+   print_r($paramsedit);
+   
+   sqlsrv_query($conn, $tsqledit, $paramsedit);
+    
    /* Free connection resources. */
    sqlsrv_close($conn);
+   $user = $_POST['username'];
+   echo "<form id='myForm' method='post' action='edit-credentials.php'>
+    <input type='hidden' name='username' value='{$user}'>
+</form>
+<script type='text/javascript'>
+    document.getElementById('myForm').submit();
+</script>";
   
   }
 
@@ -225,55 +181,68 @@ session_start();
             autocomplete="on"
             class="admin-form-form"
           >
+          <input type="hidden" name="formVal" value="true">
+          <?php 
+          echo "
+          <input type='hidden' name='oldusername' value='$oldusername'>
           <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            id="username"
-            class="edit-credentials-username input"
+              type='text'
+              name='username'
+              value='$username'
+              placeholder='Username'
+              id='username'
+              class='edit-credentials-username input'
           />
           <input
-            type="text"
-            name="password"
-            placeholder="Password"
-            id="password"
-            class="edit-credentials-password input"
+            type='text'
+            name='password'
+            value='$password'
+            placeholder='Password'
+            id='password'
+            class='edit-credentials-password input'
           />
           <input
-            type="tel"
-            name="phone"
-            placeholder="Phone"
-            id="phone"
-            class="edit-credentials-phone input"
+            type='tel'
+            name='phone'
+            value='$phone'
+            placeholder='Phone'
+            id='phone'
+            class='edit-credentials-phone input'
           />
           <input
-            type="text"
-            name="email"
-            placeholder="E-mail"
-            id="email"
-            class="edit-credentials-email input"
+            type='text'
+            name='email'
+            value='$email'
+            placeholder='E-mail'
+            id='email'
+            class='edit-credentials-email input'
           />
           <input
-            type="text"
-            name="firstname"
-            placeholder="First Name"
-            id="firstname"
-            class="edit-credentials-first-name input"
+            type='text'
+            name='firstname'
+            value='$firstname'
+            placeholder='First Name'
+            id='firstname'
+            class='edit-credentials-first-name input'
           />
           <input
-            type="text"
-            name="lastname"
-            placeholder="Last Name"
-            id="lastname"
-            class="edit-credentials-last-name input"
+            type='text'
+            name='lastname'
+            value='$lastname'
+            placeholder='Last Name'
+            id='lastname'
+            class='edit-credentials-last-name input'
           />
           <input
-            type="date"
-            name="birthdate"
-            placeholder="Age"
-            id="age"
-            class="edit-credentials-age input"
+            type='date'
+            name='birthdate'
+            value='$birthdate'
+            placeholder='Age'
+            id='age'
+            class='edit-credentials-age input'
           />
+    ";
+          ?>
     </form>
           <button type="submit" form="useredit" class="edit-credentials-submit-button button">
             <span class="edit-credentials-text1">SUBMIT</span>
