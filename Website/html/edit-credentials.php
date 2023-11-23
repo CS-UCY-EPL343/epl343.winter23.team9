@@ -90,7 +90,7 @@ session_start();
         />
   "
 
-  if ($_SERVER["REQUEST_METHOD"] == "POST", $_POST['form_id'] ) {
+  if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['form_id'] ) {
     $serverName = $_SESSION["serverName"];
     $connectionOptions = $_SESSION["connectionOptions"];
     $conn = sqlsrv_connect($serverName, $connectionOptions);
