@@ -165,3 +165,13 @@ SELECT P.*
 FROM [dbo].[PRODUCT] P
 END
 GO
+
+CREATE PROCEDURE spGetProduct 
+@Product_ID INT
+AS 
+BEGIN
+SELECT *
+FROM [dbo].[PRODUCT]
+WHERE [Product_ID] = @Product_ID
+END
+GO
