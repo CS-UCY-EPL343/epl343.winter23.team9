@@ -1,3 +1,203 @@
+<?php
+session_start();
+$newItem=0;
+if(isset($_POST['pid'])){
+  $pid = $_POST['pid'];
+  $newItem=1;
+}else{
+  $pid = -1;
+}
+
+if($newItem=1 && isset($_POST['pid']) && $_POST['pid']!=-1){
+
+  $serverName = $_SESSION["serverName"];
+  $connectionOptions = $_SESSION["connectionOptions"];
+  $conn = sqlsrv_connect($serverName, $connectionOptions);
+
+  if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+  }
+  $tsql = "{call spGetProduct (?)}";
+  $params = array($pid); // replace 'Electronics' with the category you want
+  $getResults = sqlsrv_query($conn, $tsql, $params);
+  $row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
+
+    $pid = $row['Product_ID'];
+    $name = $row['Product_Name'];
+    $cat = $row['Category'];
+    $description = $row['Description'];
+    $price = $row['Price'];
+    $quantity = $row['Stock'];
+    $image = $row['Image_path'];
+      /* Free query  resources. */
+  sqlsrv_free_stmt($getResults);
+
+  /* Free connection resources. */
+  sqlsrv_close($conn);
+  }
+
+  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['form_id']) && $_POST['form_id']!=-1) {
+    $serverName = $_SESSION["serverName"];
+    $connectionOptions = $_SESSION["connectionOptions"];
+    $conn = sqlsrv_connect($serverName, $connectionOptions);
+  
+    if ($conn === false) {
+      die(print_r(sqlsrv_errors(), true));
+    }
+    $tsql = "{call spEditProduct (?, ?, ? ,? ,?, ?, ?)}";
+    
+   $params = array($_POST['Nname'], $_POST['form_id'], $_POST['NPrice'], $_POST['Ndescription'], $_POST['NQuantity'], $_POST['Ncategory'], $_POST['Nfilename']); 
+    sqlsrv_query($conn, $tsql, $params);
+
+   /* Free connection resources. */
+   sqlsrv_close($conn);
+  
+  }else if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['form_id']) && $_POST['form_id']==-1){
+    $serverName = $_SESSION["serverName"];
+    $connectionOptions = $_SESSION["connectionOptions"];
+    $conn = sqlsrv_connect($serverName, $connectionOptions);
+
+    if ($conn === false) {
+      die(print_r(sqlsrv_errors(), true));
+    }
+
+    $tsql = "{call spAddProduct (?, ?, ? ,? ,?, ?)}";
+    
+   $params = array($_POST['Nname'], $_POST['Nprice'], $_POST['Ndescription'], $_POST['Nquantity'], $_POST['Ncategory'], $_POST['Nfilename']);
+  }
+
+function getOldInfo($pid, $price, $cat, $name, $description, $quantity, $image){
+echo "<input
+  type='text'
+  name='NPrice'
+  value='$price'
+  required
+  placeholder='Price'
+  autocomplete='family-name'
+  class='admin-form-price input'
+/>
+<input
+  type='number'
+  name='NQuantity'
+  value='$quantity'
+  required
+  placeholder='Quantity'
+  autocomplete='family-name'
+  class='admin-form-quantity input'
+/>
+<input
+  type='text'
+  id='productname'
+  value='$name'
+  name='Nname'
+  required
+  placeholder='Name'
+  autocomplete='name'
+  class='admin-form-name-form input'
+/>
+<div class='admin-form-description-text'>
+  <textarea class='form-input' rows='10' cols='60' name='Ndescription'>$description</textarea>
+</div>
+<select
+  id='category'
+  name='Ncategory'
+  required
+  class='admin-form-select'
+>";
+
+switch($cat){
+  case "Mod":
+    echo"<option value=''>Select category</option>
+    <option value='1' Selected>Mod</option>
+    <option value='2'>Pod</option>
+    <option value='3'>Coil</option>
+    <option value='4'>Booster</option>
+    <option value='5'>Liquid</option>
+    <option value='6'>Battery</option>
+    <option value='7'>Atomizer</option>
+  </select>";
+    break;
+  
+  case "Pod":
+    echo"<option value=''>Select category</option>
+    <option value='1'>Mod</option>
+    <option value='2' Selected>Pod</option>
+    <option value='3'>Coil</option>
+    <option value='4'>Booster</option>
+    <option value='5'>Liquid</option>
+    <option value='6'>Battery</option>
+    <option value='7'>Atomizer</option>
+  </select>";
+    break;
+
+  case "Coil":
+    echo"<option value=''>Select category</option>
+    <option value='1'>Mod</option>
+    <option value='2'>Pod</option>
+    <option value='3' Selected>Coil</option>
+    <option value='4'>Booster</option>
+    <option value='5'>Liquid</option>
+    <option value='6'>Battery</option>
+    <option value='7'>Atomizer</option>
+  </select>";
+    break;
+  
+  case "Booster":
+    echo"<option value=''>Select category</option>
+    <option value='1'>Mod</option>
+    <option value='2'>Pod</option>
+    <option value='3'>Coil</option>
+    <option value='4' Selected>Booster</option>
+    <option value='5'>Liquid</option>
+    <option value='6'>Battery</option>
+    <option value='7'>Atomizer</option>
+  </select>";
+    break;
+  
+  case "Liquid":
+    echo"<option value=''>Select category</option>
+    <option value='1'>Mod</option>
+    <option value='2'>Pod</option>
+    <option value='3'>Coil</option>
+    <option value='4'>Booster</option>
+    <option value='5' Selected>Liquid</option>
+    <option value='6'>Battery</option>
+    <option value='7'>Atomizer</option>
+  </select>";
+    break;
+  
+  case "Battery":
+    echo"<option value=''>Select category</option>
+    <option value='1'>Mod</option>
+    <option value='2'>Pod</option>
+    <option value='3'>Coil</option>
+    <option value='4'>Booster</option>
+    <option value='5'>Liquid</option>
+    <option value='6' Selected>Battery</option>
+    <option value='7'>Atomizer</option>
+  </select>";
+    break;
+
+  case "Atomizer":
+    echo"<option value=''>Select category</option>
+    <option value='1'>Mod</option>
+    <option value='2'>Pod</option>
+    <option value='3'>Coil</option>
+    <option value='4'>Booster</option>
+    <option value='5'>Liquid</option>
+    <option value='6'>Battery</option>
+    <option value='7' Selected>Atomizer</option>
+  </select>";
+    break;
+  
+}
+echo "<div class='admin-form-container4'>
+<input type='text' id='myFile' name='Nfilename' value='$image'/>
+</div>";
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -67,7 +267,7 @@
             </a>
             <nav class="admin-form-links">
               <a href="admin-dash.php" class="product-list-nav1">Product List</a>
-              <a href="admin-form.html" class="product-list-nav2">Add Items</a>
+              <a href="admin-form.php" class="product-list-nav2">Add Items</a>
               <span class="admin-form-nav5"></span>
             </nav>
 
@@ -75,7 +275,7 @@
         </div>
         
         <span class="admin-form-add-new-product">
-          -ADD NEW OR UPDATE EXISTING PRODUCT-
+          -ADD NEW/EXISTING PRODUCT-
         </span>
         <div class="admin-form-form-container">
           <form
@@ -86,56 +286,57 @@
             autocomplete="on"
             class="admin-form-form"
           >
-            <input
-              type="text"
-              name="Price"
-              enctype="Surname"
-              required
-              placeholder="Price"
-              autocomplete="family-name"
-              class="admin-form-price input"
-            />
-            <input
-              type="number"
-              name="Quantity"
-              enctype="Surname"
-              required
-              placeholder="Quantity"
-              autocomplete="family-name"
-              class="admin-form-quantity input"
-            />
-            <input
-              type="text"
-              id="customername"
-              name="name"
-              required
-              placeholder="Name"
-              autocomplete="name"
-              class="admin-form-name-form input"
-            />
-            <div class="admin-form-description-text">
-             
-                  <textarea class="form-input" rows="10" cols="60" name="description"></textarea>
-                  
-          
-              
-            </div>
-            <select
-              id="category"
-              name="category"
-              required
-              class="admin-form-select"
-            >
-            <option value="" disabled selected>Select category</option>
-              <option value="1">E-cigarette</option>
-              <option value="2">Vape-liquid</option>
-              <option value="3">Accessory</option>
-            </select>
-            <div class="admin-form-container4">
-              
-                <input type="file" id="myFile" name="filename" />
-
-            </div>
+          <input type="hidden" name="form_id" value="<?php echo "$pid"?>">
+            <?php if($newItem==1){
+              getOldInfo($pid, $price, $cat, $name, $description, $quantity, $image);
+              }else{
+                echo "<input
+                type='text'
+                name='NPrice'
+                required
+                placeholder='Price'
+                autocomplete='family-name'
+                class='admin-form-price input'
+              />
+              <input
+                type='number'
+                name='NQuantity'
+                required
+                placeholder='Quantity'
+                autocomplete='family-name'
+                class='admin-form-quantity input'
+              />
+              <input
+                type='text'
+                id='productname'
+                name='Nname'
+                required
+                placeholder='Name'
+                autocomplete='name'
+                class='admin-form-name-form input'
+              />
+              <div class='admin-form-description-text'>
+                <textarea class='form-input' rows='10' cols='60' name='Ndescription'></textarea>
+              </div>
+              <select
+                id='category'
+                name='Ncategory'
+                required
+                class='admin-form-select'
+              > 
+              <option value=''>Select category</option>
+                  <option value='1' >Mod</option>
+                  <option value='2'>Pod</option>
+                  <option value='3'>Coil</option>
+                  <option value='4'>Booster</option>
+                  <option value='5'>Liquid</option>
+                  <option value='6'>Battery</option>
+                  <option value='7'>Atomizer</option>
+                </select>
+              <div class='admin-form-container4'>
+              <input type='text' id='myFile' name='Nfilename' placeholder='Image Path'/>
+              </div>";
+              }?>
           </form>
 
           <button type="submit" form="stockadd" class="admin-form-submit-button">
