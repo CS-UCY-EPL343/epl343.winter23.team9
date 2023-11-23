@@ -189,7 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <img alt="image" src="./images/MyEcigShopLogoNew.png" class="login-page-ecig-picture" />
       </a>
       <header class="login-page-backround">
-      <form action="login-page.php" method="post"> 
+      <form action="EditCredentials.php" method="post"> 
         <input type="text" name="username" placeholder="username" class="login-page-username-member input" />
         <input type="text" name="usernameAdmin" placeholder="username" class="login-page-username-admin input" />
         <input type="text" name="passwordAdmin" placeholder="password" class="login-page-password-admin input" />

@@ -19,7 +19,7 @@ USE DB CREATE TABLE [dbo].CUSTOMER (
 --create product table
 CREATE TABLE [dbo].PRODUCT (
   Product_Name VARCHAR(50) NOT NULL,
-  Product_ID INT NOT NULL,
+  Product_ID INT IDENTITY (1,1),
   Price FLOAT NOT NULL,
   CHECK(Price >= 0),
   Description VARCHAR(500) NOT NULL DEFAULT 'No item description',

@@ -7,3 +7,48 @@ EXEC spAddProduct @Product_Name='Mariosgamer', @Product_ID='100', @Price='80', @
 EXEC spDeleteProduct @Product_ID='100';
 
 EXEC spEditProduct  @p_Name='Marios iphone', @p_ID='100', @p_Price='1200', @p_Description='wowowow', @p_Stock='10', @p_Category='Mod', @p_Image_path='images/image1.png';
+
+<?php
+session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Collect input data
+    $phone = $_POST['phone'];
+    $firstname = $_POST['firstname'];
+    $birthdate = $_POST['birthdate'];
+    $lastname = $_POST['lastname'];
+    $password = $_POST['password'];
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $newusername = $_POST['newusername'];
+
+    // Database connection
+   // Set session variables
+   $serverName = $_SESSION["serverName"];
+   $connectionOptions = $_SESSION["connectionOptions"];
+     $conn = sqlsrv_connect($serverName, $connectionOptions);
+
+     if($conn === false) {
+       die(print_r(sqlsrv_errors(), true));
+   }
+
+    // Prepare SQL statement
+    $tsqlget = "{call spGetAccount (?)}";
+    $paramsget = array($username);
+
+    $tsqledit = "{call spEditAccount (?, ?, ?, ?, ?, ?, ?, ?)}";
+    $paramsedit = array($email, $phone, $firstname, $lastname, $username, $newusername, $password, $birthdate);
+
+    // Execute the query
+      $stmt = sqlsrv_query($conn, $tsqledit, $paramsedit);
+    if ($stmt === false) {
+      echo "Error Updating account.";
+      print_r(sqlsrv_errors(), true);
+    } else {
+        echo "Account Update successful.";
+        /* Free query  resources. */
+    sqlsrv_free_stmt($stmt);
+    }
+    // Close the connection
+    sqlsrv_close($conn);
+}
+?>

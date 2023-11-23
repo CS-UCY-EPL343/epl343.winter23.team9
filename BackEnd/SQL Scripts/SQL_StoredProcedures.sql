@@ -84,8 +84,8 @@ WHERE Category = 'Mod'
 END
 GO 
 
-CREATE PROCEDURE spAddProduct @Product_Name VARCHAR(50),
-  @Product_ID INT,
+CREATE PROCEDURE spAddProduct
+  @Product_Name VARCHAR(50),
   @Price FLOAT,
   @Description VARCHAR(500),
   @Stock INT,
