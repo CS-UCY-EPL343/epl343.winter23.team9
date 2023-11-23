@@ -141,10 +141,10 @@ if(!isset($_POST['formVal'])){
               />
             </a>
             <nav class="edit-credentials-links">
-              <a href="index.html" class="edit-credentials-nav1">Home</a>
-              <a href="products.html" class="edit-credentials-nav2">Products</a>
-              <a href="products.html" class="edit-credentials-nav3">Order</a>
-              <a href="contact-us.html" class="edit-credentials-nav4">Contact Us</a>
+              <a href="index.php" class="edit-credentials-nav1">Home</a>
+              <a href="products.php" class="edit-credentials-nav2">Products</a>
+              <span class="edit-credentials-nav3">Order</span>
+              <a href="contact-us.php" class="edit-credentials-nav4">Contact Us</a>
               <span class="edit-credentials-nav5"></span>
             </nav>
             <div class="edit-credentials-container1">
