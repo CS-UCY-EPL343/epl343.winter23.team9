@@ -288,6 +288,12 @@
   text-decoration: none;
 }
 
+.login-page-nav4 {
+  color: var(--dl-color-secondary-gray500);
+  margin-left: var(--dl-space-space-unit);
+  text-decoration: none;
+}
+
 .login-page-nav5 {
   color: var(--dl-color-secondary-gray500);
   margin-left: var(--dl-space-space-unit);

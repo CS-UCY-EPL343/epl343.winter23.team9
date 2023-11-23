@@ -23,10 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Prepare SQL statement
     $tsql = "{call spSIGNUP (?, ?, ?, ?, ?, ?, ?)}";
     $params = array($email, $phone, $firstname, $lastname, $username, $password, $birthdate);
-   print_r($params);
     // Execute the query
       $stmt = sqlsrv_query($conn, $tsql, $params);
-      print_r($stmt);
     if ($stmt === false) {
       echo "Error Registering.";
       print_r(sqlsrv_errors(), true);
@@ -187,6 +185,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           class="register-page-ecig-picture" />
       </a>
       <header class="register-page-backround">
+      <span class="register-page-welcome-text">
+          <span class="register-page-text9">Creating a stronger bond with us!</span>
+          <br class="register-page-text01" />
+        </span>
       <form action="register-page.php" method="post"> 
         <input type="tel" name="phone" placeholder="phone" class="register-page-username-member input" />
         <input type="text" name="firstname" placeholder="Firstname" class="register-page-username-member1 input" />
@@ -216,12 +218,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="register-page-logo">ECS</span>
             <a href="index.php" class="register-page-navlink1">
               <nav class="register-page-nav">
-                <span class="register-page-nav1">Home</span>
-                <span class="register-page-nav2">Products</span>
-                <span class="register-page-nav3">
-                  <span>Cart</span>
-                  <br />
-                </span>
+                <a  href="index.php" class="register-page-nav1">Home</a>
+                <a href="products.php" class="register-page-nav2">Products</a>
+                <span class="register-page-nav3">Cart</span>
                 <span class="register-page-nav4">Account</span>
                 <span class="register-page-nav5">Contact</span>
               </nav>
@@ -230,7 +229,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="register-page-separator"></div>
           <div class="register-page-container2">
             <span class="register-page-text8">
-              © 2023 E-cig shop, All Rights Reserved.
+            © 2023 my-ecigshop™, All Rights Reserved.
             </span>
             <div class="register-page-icon-group">
               <a href="https://twitter.com" target="_blank" rel="noreferrer noopener" class="register-page-link">

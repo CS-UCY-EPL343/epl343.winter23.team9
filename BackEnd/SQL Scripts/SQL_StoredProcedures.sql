@@ -17,12 +17,12 @@ END
 ELSE BEGIN
 INSERT INTO [dbo].CUSTOMER
 VALUES (
-    @Email,
-    @Phone_Number,
-    @First_Name,
-    @Last_Name,
-    @UserName,
-    @Passwd,
+    RTRIM(@Email),
+    RTRIM(@Phone_Number),
+    RTRIM(@First_Name),
+    RTRIM(@Last_Name),
+    RTRIM(@UserName),
+    RTRIM(@Passwd),
     @Birth_Date,
     CONVERT(INT, '0')
   );
@@ -102,12 +102,12 @@ END
 BEGIN
 INSERT INTO [dbo].PRODUCT
 VALUES (
-    @Product_Name,
+    RTRIM(@Product_Name),
     @Price,
-    @Description,
+    RTRIM(@Description),
     @Stock,
     @Category,
-    @Image_path
+    RTRIM(@Image_path)
   );
   PRINT 'Success: Product added/updated.'
 END

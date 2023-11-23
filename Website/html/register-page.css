@@ -234,6 +234,17 @@
   font-size: 2em;
   font-weight: bold;
 }
+.register-page-welcome-text {
+  top: 41px;
+  left: 30px;
+  position: absolute;
+}
+.register-page-text01 {
+  background-color: rgb(217, 217, 217);
+}
+.register-page-text9 {
+  font-size: 30px;
+}
 .register-page-navlink1 {
   display: contents;
 }

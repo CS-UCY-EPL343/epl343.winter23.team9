@@ -261,7 +261,7 @@ echo "<div class='admin-form-container4'>
       <div class="admin-form-container">
         <div class="admin-form-header">
           <header data-thq="thq-navbar" class="admin-form-navbar-interactive">
-            <a href="index.html" class="admin-form-navlink">
+            <a href="index.php" class="admin-form-navlink">
               <img
                 alt="image"
                 src="https://my-ecigshop.com/wp-content/uploads/2021/03/MyEcigShopLogoNew.png"
@@ -319,7 +319,7 @@ echo "<div class='admin-form-container4'>
                 class='admin-form-name-form input'
               />
               <div class='admin-form-description-text'>
-                <textarea class='form-input' rows='10' cols='60' name='Ndescription'></textarea>
+                <textarea class='form-input' rows='10' cols='60' placeholder='Description' name='Ndescription'></textarea>
               </div>
               <select
                 id='category'
@@ -351,20 +351,17 @@ echo "<div class='admin-form-container4'>
             <div class="admin-form-container6">
               <span class="admin-form-logo1">ECS</span>
               <nav class="admin-form-nav1">
-                <a href="index.html" class="admin-form-nav12">Home</a>
-                <a href="products.html" class="admin-form-nav22">Products</a>
-                <span class="admin-form-nav31">
-                  <span>Cart</span>
-                  <br />
-                </span>
-                <a href="login-page.html" class="admin-form-nav42">Account</a>
-                <a href="contact-us.html" class="admin-form-nav52">Contact</a>
+                <a href="index.php" class="admin-form-nav12">Home</a>
+                <a href="products.php" class="admin-form-nav22">Products</a>
+                <span class="admin-form-nav31">Cart</span>
+                <span class="admin-form-nav42">Account</span>
+                <span class="admin-form-nav52">Contact</span>
               </nav>
             </div>
             <div class="admin-form-separator"></div>
             <div class="admin-form-container7">
               <span class="admin-form-text5">
-                © 2023 E-cig shop, All Rights Reserved.
+              © 2023 my-ecigshop™, All Rights Reserved.
               </span>
               <div class="admin-form-icon-group1">
                 <a

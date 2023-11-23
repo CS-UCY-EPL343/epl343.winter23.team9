@@ -195,11 +195,13 @@ function products()
       <div class="product-list-container">
         <div class="product-list-header">
           <header data-thq="thq-navbar" class="product-list-navbar-interactive">
-            <img
+          <a href="index.php" class="register-page-navlink">  
+          <img
               alt="image"
               src="./Images/MyEcigShopLogoNew.png"
               class="product-list-image"
             />
+            </a>
             <nav class="product-list-links">
             <a href="admin-dash.php" class="product-list-nav1">Product List</a>
             <a href="admin-form.php" class="product-list-nav2">Add Items</a>

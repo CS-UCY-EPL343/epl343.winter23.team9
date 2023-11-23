@@ -188,11 +188,7 @@ session_start();
             <a href="index.php" class="main-page-nav1">Home</a>
             <a href="products.php" class="main-page-nav2">Products</a>
             <span class="main-page-nav3">Order</span>
-            <a href="account.php" class="main-page-nav4">
-              <span class="main-page-text">Cart</span>
-              <br />
-            </a>
-            <span class="main-page-nav5"></span>
+              <span class="main-page-nav4">Cart</span>
           </nav>
           <div class="main-page-container1">
             <div data-thq="thq-navbar-nav" class="main-page-desktop-menu"></div>
@@ -267,18 +263,15 @@ session_start();
             <nav class="main-page-nav1">
               <a href="index.php" class="main-page-nav12">Home</a>
               <a href="products.php" class="main-page-nav22">Products</a>
-              <a href="cart-page.php" class="main-page-nav32">
-                <span>Cart</span>
-                <br />
-              </a>
+              <span class="main-page-nav32">Cart</span>
               <span class="main-page-nav42">Account</span>
-              <a href="contact-us.php" class="main-page-nav52">Contact</a>
+              <span class="main-page-nav52">Contact</span>
             </nav>
           </div>
           <div class="main-page-separator"></div>
           <div class="main-page-container4">
             <span class="main-page-text14">
-              © 2023 my-ecigshop, All Rights Reserved.
+              © 2023 my-ecigshop™, All Rights Reserved.
             </span>
 
             <div class="Social Media Icons">

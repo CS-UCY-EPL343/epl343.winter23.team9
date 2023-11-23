@@ -51,8 +51,14 @@ if(!isset($_POST['formVal'])){
    $paramsedit = array($_POST['email'], $_POST['phone'], $_POST['firstname'], $_POST['lastname'], $_POST['oldusername'], $_POST['username'], $_POST['password'], $_POST['birthdate']); 
    print_r($paramsedit);
    
-   sqlsrv_query($conn, $tsqledit, $paramsedit);
-    
+   $stmt = sqlsrv_query($conn, $tsqledit, $paramsedit);
+
+   if ($stmt === false) {
+    echo "Error Updating.";
+    print_r(sqlsrv_errors(), true);
+  } else {
+      echo "Credential Update successful.";
+  }
    /* Free connection resources. */
    sqlsrv_close($conn);
    $user = $_POST['username'];
@@ -133,7 +139,7 @@ if(!isset($_POST['formVal'])){
             data-thq="thq-navbar"
             class="edit-credentials-navbar-interactive"
           >
-            <a href="index.html" class="edit-credentials-navlink">
+            <a href="index.php" class="edit-credentials-navlink">
               <img
                 alt="image"
                 src="./Images/MyEcigShopLogoNew.png"
@@ -144,8 +150,7 @@ if(!isset($_POST['formVal'])){
               <a href="index.php" class="edit-credentials-nav1">Home</a>
               <a href="products.php" class="edit-credentials-nav2">Products</a>
               <span class="edit-credentials-nav3">Order</span>
-              <a href="contact-us.php" class="edit-credentials-nav4">Contact Us</a>
-              <span class="edit-credentials-nav5"></span>
+              <span class="edit-credentials-nav4">Cart</span>
             </nav>
             <div class="edit-credentials-container1">
               <div
@@ -161,8 +166,8 @@ if(!isset($_POST['formVal'])){
             >
               <div class="edit-credentials-nav">
                 <nav class="edit-credentials-links1">
-                  <span class="edit-credentials-nav11">Home</span>
-                  <span class="edit-credentials-nav21">Products</span>
+                  <a href="index.php" class="edit-credentials-nav11">Home</a>
+                  <a href="products.php" class="edit-credentials-nav21">Products</a>
                   <span class="edit-credentials-nav31">Order</span>
                   <span class="edit-credentials-nav41">Account</span>
                   <span class="edit-credentials-nav51">Contact</span>

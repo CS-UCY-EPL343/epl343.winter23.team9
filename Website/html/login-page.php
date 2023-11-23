@@ -217,7 +217,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </form>
         <span class="login-page-welcome-text">
-          <span class="login-page-text">Welcome to Your Account</span>
           <br class="login-page-text01" />
         </span>
         <span class="login-page-login-header">member login</span>
@@ -237,17 +236,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <nav class="login-page-nav">
               <a href="index.php" class="login-page-nav1">Home</a>
               <a href="products.php" class="login-page-nav2">Products</a>
-              <a class="login-page-nav3">
-                <span>Cart</span>
-                <br />
-              </a>
-              <a href="ContactUs.php" class="login-page-nav5">Contact</a>
+              <span class="login-page-nav3">Cart</span>
+              <span class="login-page-nav4">Account</span>
+              <span class="login-page-nav5">Contact</span>
             </nav>
           </div>
           <div class="login-page-separator"></div>
           <div class="login-page-container2">
             <span class="login-page-text12">
-              © 2023 my-ecigshop, All Rights Reserved.
+            © 2023 my-ecigshop™, All Rights Reserved.
             </span>
             <div class="login-page-icon-group">
               <a href="https://twitter.com" target="_blank" rel="noreferrer noopener" class="login-page-link">
