@@ -175,3 +175,50 @@ FROM [dbo].[PRODUCT]
 WHERE [Product_ID] = @Product_ID
 END
 GO
+
+CREATE PROCEDURE spDeleteAccount 
+@UserName VARCHAR(30)
+AS
+BEGIN 
+IF NOT EXISTS (
+    SELECT *
+    FROM [dbo].[CUSTOMER]
+    WHERE [UserName] = @UserName    
+  ) BEGIN PRINT 'Error: Username does not exist.' RETURN
+END
+DELETE FROM [dbo].[CUSTOMER]
+    WHERE [UserName] = @UserName
+PRINT 'Success: Account deleted'
+END
+GO
+
+CREATE PROCEDURE spGetCustomer
+@UserName VARCHAR(30)
+AS 
+BEGIN
+SELECT *
+FROM [dbo].[CUSTOMER]
+WHERE [Username] = @UserName
+END
+GO
+
+CREATE PROCEDURE spEditAccount
+ @c_Phone_Number VARCHAR(8),
+@c_First_Name VARCHAR(30),
+@c_Last_Name VARCHAR(30),
+@c_UserName VARCHAR(30),
+@c_Passwd VARCHAR(256),
+@c_Birth_Date DATE
+  AS 
+  BEGIN
+  IF NOT EXISTS (
+    SELECT *
+    FROM [dbo].[CUSTOMER]
+    WHERE [UserName] = @c_UserName
+  ) BEGIN PRINT 'Error: Account does not exist' RETURN
+END
+  EXEC spDeleteAccount @Username=@c_UserName;
+  EXEC spSIGNUP @Phone_Number=@c_Phone_Number, @First_Name=@c_First_Name, @Last_Name=@c_Last_Name, @UserName=@c_UserName, @Passwd=@c_Passwd, @Birth_Date=@c_Birth_Date;
+END
+GO
+
