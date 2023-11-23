@@ -1,4 +1,5 @@
-CREATE PROCEDURE spSIGNUP @Email VARCHAR(30),
+CREATE PROCEDURE spSIGNUP 
+@Email VARCHAR(30),
 @Phone_Number VARCHAR(8),
 @First_Name VARCHAR(30),
 @Last_Name VARCHAR(30),
@@ -203,12 +204,14 @@ END
 GO
 
 CREATE PROCEDURE spEditAccount
+ @c_Email VARCHAR(30),
  @c_Phone_Number VARCHAR(8),
-@c_First_Name VARCHAR(30),
-@c_Last_Name VARCHAR(30),
-@c_UserName VARCHAR(30),
-@c_Passwd VARCHAR(256),
-@c_Birth_Date DATE
+ @c_First_Name VARCHAR(30),
+ @c_Last_Name VARCHAR(30),
+ @c_UserName VARCHAR(30), --php stores the current username and send it to the stored procedure
+ @c_newUserName VARCHAR(30), --new username from customer
+ @c_Passwd VARCHAR(256),
+ @c_Birth_Date DATE
   AS 
   BEGIN
   IF NOT EXISTS (
@@ -218,7 +221,7 @@ CREATE PROCEDURE spEditAccount
   ) BEGIN PRINT 'Error: Account does not exist' RETURN
 END
   EXEC spDeleteAccount @Username=@c_UserName;
-  EXEC spSIGNUP @Phone_Number=@c_Phone_Number, @First_Name=@c_First_Name, @Last_Name=@c_Last_Name, @UserName=@c_UserName, @Passwd=@c_Passwd, @Birth_Date=@c_Birth_Date;
+  EXEC spSIGNUP @Email=@c_Email, @Phone_Number=@c_Phone_Number, @First_Name=@c_First_Name, @Last_Name=@c_Last_Name, @UserName=@c_newUserName, @Passwd=@c_Passwd, @Birth_Date=@c_Birth_Date;
 END
 GO
 
