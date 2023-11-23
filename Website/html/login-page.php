@@ -220,7 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <span class="login-page-text08">Admin Login</span>
           <br />
         </span>
-        <a href="https://example.com" target="_blank" rel="noreferrer noopener" class="login-page-sign-up-button">
+        <a href="./register-page.php" target="_blank" rel="noreferrer noopener" class="login-page-sign-up-button">
           Not a Member? Sign up now!
         </a>
         <img alt="image" src="./images/vape-img1.png" class="login-page-vape-image" />
