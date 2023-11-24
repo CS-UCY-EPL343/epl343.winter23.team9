@@ -83,6 +83,16 @@ WHERE Category = 'Mod'
 END
 GO 
 
+CREATE PROCEDURE spViewProduct
+@Product_Name VARCHAR(50)
+AS
+BEGIN
+SELECT *
+FROM [dbo].[PRODUCT]
+WHERE [Product_Name] = @Product_Name
+END
+GO
+
 CREATE PROCEDURE spAddProduct
   @Product_Name VARCHAR(50),
   @Price FLOAT,

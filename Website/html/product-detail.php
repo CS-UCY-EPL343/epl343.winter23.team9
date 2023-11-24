@@ -31,7 +31,7 @@ $Nicotine = "";
         die(print_r(sqlsrv_errors(), true));
     }
 
-    $tsql = "{call viewProduct (?)}";
+    $tsql = "{call spViewProduct (?)}";
     $params = array($Name); // replace 'Electronics' with the category you want
 
     $getResults = sqlsrv_query($conn, $tsql, $params);
@@ -42,11 +42,12 @@ $Nicotine = "";
 
     $Price = $data[0]['Price'];
     $Description = $data[0]['Description'];
+    $image = $data[0]['Image_path'];
 
     echo "
     <img
       alt='product'
-      src=''
+      src='$image'
       class='product-detail-image1'
     />
     
